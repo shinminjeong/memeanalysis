@@ -322,13 +322,7 @@ def cluster_titles(source, keyword, model, pref):
 
     titles = [i.title for i in images]
     words, X = get_t2v_vector(keyword, titles)
-
-    if model == "" or model == "sorted":
-        model, pref = get_model_pref(images.count())
-    if model == "ap":
-        labels, num, centers = cluster_AP(X, pref)
-    if model == "kmeans":
-        labels, num, centers = cluster_Kmeans(X, pref)
+    labels, num, centers = cluster_Kmeans(X, pref)
 
     wc, tfidf, scores, sorted_clusters = make_clusters(keyword, images, labels, num)
     save_repimages(model, pref, imcluster, sorted_clusters)

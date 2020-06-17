@@ -9,49 +9,23 @@
       <div class="content-wrapper">
         <section class="content-header">
           <h1>
-            {% if type == "image" %}
-                Clustering by Image similarity
-            {% elif type == "text" %}
-                Clustering by Text similarity
-            {% endif %}
+              Clustering by Image similarity
           </h1>
         </section>
         <section class="content">
-          <div class="row" style="margin-bottom: 20px">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
-              <form role="form" action="." method="get">
-                <div class="row">
-                  <div class="col-lg-1" style="padding:1px">
-                    <input class="form-control uneditable" name="type" value="{{ type }}" readonly="readonly" />
-                  </div>
-                  <div class="col-lg-2" style="padding:1px">
-                    <input class="form-control uneditable" name="source" value="{{ s }}" readonly="readonly" />
-                  </div>
-                  <div class="col-lg-4" style="padding:1px">
-                    <input class="form-control uneditable" type="text" name="keyword" value="{{ key }}" readonly="readonly" />
-                  </div>
-                  <div class="col-lg-2" style="padding:1px">
-                    <select class="form-control" name="model">
-                        {% if model == "ap" %}
-                            <option value="ap" selected>Affinity Propatation</option>
-                            <option value="kmeans">K-means</option>
-                        {% else %}
-                            <option value="ap">Affinity Propatation</option>
-                            <option value="kmeans" selected>K-means</option>
-                        {% endif %}
-                    </select>
-                  </div>
-                  <div class="col-lg-1" style="padding:1px">
-                    <input class="form-control" type="number" name="pref" value="{{ pref }}" placeholder="pref" />
-                  </div>
-                  <div class="col-lg-2" style="padding:1px">
-                    <button class="btn btn-primary btn-form" type="submit" name="cluster" value="cluster">Cluster</button>
-                  </div>
-                </div>
-              </form>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-lg-2">
+              <h5><b>Word count</b></h5>
+              {% autoescape off %}
+              {% for t, c in wc %}
+                  {{ t }} ({{ c }})<br/>
+              {% endfor %}
+              {% endautoescape %}
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-10">
+              <h5><b>Timeline</b></h5>
+              {% include 'page/timeline_chart.html' with values=times p=idx %}
+            </div>
           </div>
           {% include 'page/inner_cluster.html' with source=s keyword=key type=type ncluster=ncluster words_images=words_images %}
         </section>

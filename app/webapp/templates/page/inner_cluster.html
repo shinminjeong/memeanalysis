@@ -18,21 +18,12 @@
             <div class="col-lg-2">
               <b>Number of images:</b> {{ num }}<br/>
               <b>Average Distance from centoid:</b> {{ sc|floatformat:3 }}<br/><br/>
-              {% if type == "image" %}
-                <b>Image Labels</b></br>
-                {% autoescape off %}
-                {% for t, c in imglabels %}
-                    {{ t }} ({{ c|floatformat:1 }}%)<br/>
-                {% endfor %}
-                {% endautoescape %}
-              {% elif type == "text" %}
-                <b>WC &#8745; TF-IDF</b></br>
-                {% autoescape off %}
-                {% for t, c in imglabels %}
-                    {{ t }} ({{ c }})<br/>
-                {% endfor %}
-                {% endautoescape %}
-              {% endif %}
+              <b>Image Labels</b></br>
+              {% autoescape off %}
+              {% for t, c in imglabels %}
+                  {{ t }} ({{ c|floatformat:1 }}%)<br/>
+              {% endfor %}
+              {% endautoescape %}
             </div>
             <div class="col-lg-10">
               <div class="image-cluster box box-solid bg-gray">
@@ -45,7 +36,6 @@
           <div class="overlay">
             <i class="fa fa-refresh fa-spin"></i>
           </div>
-          <!-- {% include 'page/more_info.html' with wc=wc tf=tf label=label times=times idx=idx %} -->
         </div>
       </div>
     </div><!-- /.nav-tabs-custom -->

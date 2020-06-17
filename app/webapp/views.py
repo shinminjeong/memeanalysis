@@ -203,35 +203,27 @@ def cluster(request):
     resultform = None
     images = None
 
-    if "cluster" in request.GET:
-        source = request.GET.get("source")
-        model = request.GET.get("model")
-        keyword = request.GET.get("keyword")
-        pref = int(request.GET.get("pref"))
-        ctype = request.GET.get("type")
-        print(source, model, keyword, pref, ctype)
+    source = "twitter"
+    model = "kmeans"
+    keyword = "covid19meme"
+    pref = 2
+    print(source, model, keyword, pref)
 
-        if ctype == "text":
-            wc, tfidf, scores, rawimages = cluster_titles(source, keyword, model, pref)
-        else: # type=="image"
-            wc, tfidf, scores, rawimages = cluster_images_from_keyword(source, keyword, model, pref)
+    wc, tfidf, scores, rawimages = cluster_images_from_keyword(source, keyword, model, pref)
 
-        words_tfidf = encode_ascii(tfidf)
-        words_wc = encode_ascii(wc)
-        ncluster = len(rawimages)
+    words_tfidf = encode_ascii(tfidf)
+    words_wc = encode_ascii(wc)
+    ncluster = len(rawimages)
 
-        images = []
-        imglabels = []
-        for raw in rawimages:
-            info = [get_image_info(i) for i in raw if i.original]
-            if ctype == "image": # calculate the average of image labels
-                imglabels.append(count_image_label(info))
-            images.append(info)
+    images = []
+    imglabels = []
+    for raw in rawimages:
+        info = [get_image_info(i) for i in raw if i.original]
+        imglabels.append(count_image_label(info))
+        images.append(info)
 
-        if ctype == "text": # get intersection of wc and tfidf
-            imglabels = get_intersection(words_tfidf, words_wc)
-
-        saved_page.save(ctype, source, keyword, pref, model, ncluster,
-                        words_wc, words_tfidf, scores, images, imglabels)
+    timechart = get_timeline_chart(images, 0)
+    saved_page.save("image", source, keyword, pref, model, ncluster,
+                    words_wc, words_tfidf, scores, images, imglabels, timechart)
 
     return render(request, "cluster.html", saved_page.get())

@@ -1,0 +1,66 @@
+<head>
+    <script type='text/javascript'>
+        google.charts.setOnLoadCallback(drawTimelineChart);
+        function drawTimelineChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'This cluster');
+            data.addColumn('number', 'Else');
+
+            timedata = {{ values|safe }};
+            for(var i in timedata) {
+		        data.addRow([new Date(timedata[i][0]), timedata[i][1], timedata[i][2]]);
+            }
+
+            var chart = new google.visualization.ChartWrapper({
+                chartType: 'ColumnChart',
+                containerId: 'chart_timeline_{{ p }}',
+
+                options: {
+                    height: 140,
+                    legend: { position: 'top' },
+                    bar: {groupWidth: '100%'},
+                    colors: ['#002699', '#ccd9ff'],
+                    chartArea: {
+                        top: 20,
+                        left: 30,
+                        width: '90%',
+                        height: '80%'
+                    },
+                    isStacked: true,
+                }
+            });
+
+            var control = new google.visualization.ControlWrapper({
+                controlType: 'ChartRangeFilter',
+                containerId: 'control_div_{{ p }}',
+                options: {
+                    filterColumnIndex: 0,
+                    ui: {
+                        chartOptions: {
+                            height: 40,
+                            colors: ['#002699', '#ccd9ff'],
+                            chartArea: {
+                                left: 30,
+                                height: 20,
+                                width: '90%'
+                            },
+                            hAxis : { textPosition:'out'}
+                        }
+                    }
+                }
+            });
+
+            var dashboard = new google.visualization.Dashboard(document.querySelector('#dashboard_div'));
+            dashboard.bind([control], [chart]);
+            dashboard.draw(data);
+        }
+        $(window).resize(function(){
+          drawTimelineChart();
+        });
+    </script>
+</head>
+<body>
+    <div id='chart_timeline_{{ p }}' class="chart"></div>
+    <div id="control_div_{{ p }}" class="chart"></div>
+</body>
