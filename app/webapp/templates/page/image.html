@@ -1,0 +1,28 @@
+{% load static %}
+
+{% for img in images %}
+  <div class="img-wrapper" style="padding-left:2px; max-width:240px; height:150px;">
+    <a href="/media/?id={{ img.0 }}">
+      <img class="fit-wrapper" src="{% static img.0 %}" style="min-height:120px;"/>
+      {% if img.2 > 1 %}
+      <div class="img-overlay-always">
+        <div class="overlay-text pull-right bg-gray" style="border: 1px solid gray;">
+          x{{ img.2 }}
+        </div>
+      </div>
+      {% endif %}
+      <div class="img-overlay">
+        <!-- <div class="overlay-text">
+          {{ img.1 }}
+        </div> -->
+        <div class="overlay-text" style="margin-top: 20px;">
+          {% if img.3 %}
+            {% for label, score in img.3 %}
+              <b>{{ label }}:</b> {{ score|floatformat:1 }}%</br>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+{% endfor %}

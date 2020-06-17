@@ -1,0 +1,44 @@
+{% load static %}
+
+<header class="main-header">
+  <!-- Logo -->
+  <a href="/" class="logo"><b>ANU</b>MMKG</a>
+  <!-- Header Navbar: style can be found icn header.less -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+  </nav>
+</header>
+
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar" style="position: fixed;">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <a href="#">
+      <div class="user-panel">
+        <div class="pull-left">
+          <img style="height: 75px" src="{% static 'images/cmlab-logo.png' %}"/>
+          <!-- <i class="fa fa-cloud" style="font-size: 60px;"></i> -->
+        </div>
+        <!-- <div class="info">
+          Picturing Everyday Knowledge
+        </div> -->
+        <div class="info" style="vertical-align:middle; padding-top:8px; line-height:18px;">
+          ANU Computational Media Lab.
+        </div>
+      </div>
+    </a>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+      <li class="header text-uppercase">Covid19 Meme Analysis</li>
+      <li>
+        <a href="/"><i class="fa fa-dashboard"></i> <span>Data Summary</span></a>
+      </li>
+
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

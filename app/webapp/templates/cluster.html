@@ -1,0 +1,61 @@
+{% load static %}
+
+<html>
+  {% include 'page/header.html'%}
+
+  <body class="skin-blue">
+    <div id="wrapper">
+      {% include 'page/navbar.html'%}
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            {% if type == "image" %}
+                Clustering by Image similarity
+            {% elif type == "text" %}
+                Clustering by Text similarity
+            {% endif %}
+          </h1>
+        </section>
+        <section class="content">
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <form role="form" action="." method="get">
+                <div class="row">
+                  <div class="col-lg-1" style="padding:1px">
+                    <input class="form-control uneditable" name="type" value="{{ type }}" readonly="readonly" />
+                  </div>
+                  <div class="col-lg-2" style="padding:1px">
+                    <input class="form-control uneditable" name="source" value="{{ s }}" readonly="readonly" />
+                  </div>
+                  <div class="col-lg-4" style="padding:1px">
+                    <input class="form-control uneditable" type="text" name="keyword" value="{{ key }}" readonly="readonly" />
+                  </div>
+                  <div class="col-lg-2" style="padding:1px">
+                    <select class="form-control" name="model">
+                        {% if model == "ap" %}
+                            <option value="ap" selected>Affinity Propatation</option>
+                            <option value="kmeans">K-means</option>
+                        {% else %}
+                            <option value="ap">Affinity Propatation</option>
+                            <option value="kmeans" selected>K-means</option>
+                        {% endif %}
+                    </select>
+                  </div>
+                  <div class="col-lg-1" style="padding:1px">
+                    <input class="form-control" type="number" name="pref" value="{{ pref }}" placeholder="pref" />
+                  </div>
+                  <div class="col-lg-2" style="padding:1px">
+                    <button class="btn btn-primary btn-form" type="submit" name="cluster" value="cluster">Cluster</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-2"></div>
+          </div>
+          {% include 'page/inner_cluster.html' with source=s keyword=key type=type ncluster=ncluster words_images=words_images %}
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

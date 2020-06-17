@@ -1,0 +1,66 @@
+{% load static %}
+
+{% for idx, num, sc, images, imglabels in words_images %}
+<div class="row">
+  <div class="col-lg-12">
+    <div class="box box-solid with-border nav-tabs-custom">
+      <!-- Tabs within a box -->
+      <ul class="nav nav-tabs pull-right" id="myTabs">
+        <li><a href="#cluster-moreinfo-{{ idx }}" data-url="./more?source={{ s }}&keyword={{ key }}&index={{ idx }}" data-toggle="tab">Info</a></li>
+        <li class="active"><a href="#cluster-images-{{ idx }}" data-toggle="tab">Images</a></li>
+        <li class="pull-left header">
+          <i class="fa fa-folder fa-fw"></i>Cluster <b>{{ idx }}</b> / {{ ncluster }}
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="cluster-images-{{ idx }}">
+          <div class="row">
+            <div class="col-lg-2">
+              <b>Number of images:</b> {{ num }}<br/>
+              <b>Average Distance from centoid:</b> {{ sc|floatformat:3 }}<br/><br/>
+              {% if type == "image" %}
+                <b>Image Labels</b></br>
+                {% autoescape off %}
+                {% for t, c in imglabels %}
+                    {{ t }} ({{ c|floatformat:1 }}%)<br/>
+                {% endfor %}
+                {% endautoescape %}
+              {% elif type == "text" %}
+                <b>WC &#8745; TF-IDF</b></br>
+                {% autoescape off %}
+                {% for t, c in imglabels %}
+                    {{ t }} ({{ c }})<br/>
+                {% endfor %}
+                {% endautoescape %}
+              {% endif %}
+            </div>
+            <div class="col-lg-10">
+              <div class="image-cluster box box-solid bg-gray">
+                  {% include 'page/image.html' with images=images %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="cluster-moreinfo-{{ idx }}">
+          <div class="overlay">
+            <i class="fa fa-refresh fa-spin"></i>
+          </div>
+          <!-- {% include 'page/more_info.html' with wc=wc tf=tf label=label times=times idx=idx %} -->
+        </div>
+      </div>
+    </div><!-- /.nav-tabs-custom -->
+  </div>
+</div>
+{% endfor %}
+<script>
+$('#myTabs a').click(function (e) {
+  e.preventDefault();
+  var url = $(this).attr("data-url");
+  var href = this.hash;
+  var pane = $(this);
+  // ajax load from data-url
+  $(href).load(url,function(data){
+      pane.tab('show');
+  });
+});
+</script>

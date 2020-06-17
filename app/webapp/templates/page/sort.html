@@ -1,0 +1,40 @@
+{% load static %}
+
+<html>
+    {% include 'header.html'%}
+
+    <body>
+    <div id="wrapper">
+        {% include 'navbar.html'%}
+
+        <div id="page-wrapper">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-files-o fa-fw"></i> Sorted Images: <b>{{ key }}</b> from <b>{{ s }}</b>
+                </div>
+                <div class="panel-body">
+                    {% for p, c, info, simlist in images %}
+                    <div class="cluster">
+                        <div class="overview-info">
+                            <a href="/media/?id={{ p }}">
+                                <img class="fit-wrapper" src="{% static p %}"/>
+                            </a>
+                        </div>
+                        <div class="image-cluster r65">
+                            Count: {{ c }}<br/>
+                            {% for original, user, rts in info %}
+                                <h4><b>{{ original }}</b> <a href=#>{{ user }}</a></h4>
+                            {% endfor %}
+                            {% include 'image.html' with images=simlist %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </body>
+</html>

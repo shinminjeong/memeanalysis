@@ -1,0 +1,33 @@
+{% load static %}
+
+<head>
+    <title>ANU Picturing Everyday Knowledge</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/AdminLTE.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/skin-blue.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/BootstrapXL.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/mmkg.css' %}" />
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+    <!-- google chart -->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      if ((typeof google === 'undefined') || (typeof google.visualization === 'undefined')) {
+        google.charts.load("current", {packages:["corechart", "annotationchart"]});
+      }
+    </script>
+
+    <!-- daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <!-- script type="text/javascript" src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script-->
+    <script type="text/javascript" src="{% static 'js/daterangepicker.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+    <!-- datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+</head>

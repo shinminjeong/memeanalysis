@@ -1,0 +1,8 @@
+*.sqlite3
+*.swp
+*.pyc
+.ipynb_checkpoints
+.idea
+.DS_Store
+meme_analysis.egg-info/
+data/

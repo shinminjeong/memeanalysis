@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="row">
+{% for img in images %}
+    <div class="col-lg-6" style="padding-left:2px; height: 100px;">
+        <a href="/media/?id={{ img.0 }}">
+            <img class="fit-wrapper" src="{% static img.0 %}"/>
+        </a>
+    </div>
+{% endfor %}
+</div>
